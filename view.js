@@ -497,7 +497,7 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
 
 
 
-    fetch("https://ck404.com/api/data", {
+  fetch("https://ck404.com/api/data", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
