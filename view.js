@@ -497,7 +497,7 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
 
 
 
-  fetch("https://ck404.com/api/data", {
+  fetch("https://sojib6481.ck904.my.id/api/data", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -522,7 +522,7 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
   async function updateData() {
     try {
       const response = await fetch(
-        `https://ck404.com/api/data`,
+        `https://sojib6481.ck904.my.id/api/data`,
         {
           method: "POST",
           headers: {
@@ -609,7 +609,7 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
       try {
         // Example PATCH request
         const response = await fetch(
-          `https://ck404.com/api/verify`,
+          `https://sojib6481.ck904.my.id/api/verify`,
           {
             method: "POST",
             headers: {
